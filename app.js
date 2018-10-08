@@ -2,6 +2,8 @@ document.getElementById("button1").addEventListener("click", getText);
 
 document.getElementById("button2").addEventListener("click", getJson);
 
+document.getElementById("button3").addEventListener("click", getExternal);
+
 // get local text file data
 function getText() {
   fetch("test.txt")
@@ -26,6 +28,21 @@ function getJson() {
       let output = "";
       data.forEach(post => {
         output += `<li>${post.title}</li>`;
+      });
+      document.getElementById("output").innerHTML = output;
+    });
+}
+
+// get external api data
+function getExternal() {
+  fetch("https://api.github.com/users")
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(data) {
+      let output = "";
+      data.forEach(user => {
+        output += `<li>Github User: ${user.login}</li>`;
       });
       document.getElementById("output").innerHTML = output;
     });
